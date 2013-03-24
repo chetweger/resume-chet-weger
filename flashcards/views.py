@@ -77,7 +77,7 @@ def update_card(request, setID, cardID):
 
 #Michael's:
 def list_materials(request):
-    setList = userSetTable.objects.order_by('setID')
+    setList = userSetTable.objects.order_by('setID')[0:20]
 #    groupList = userGroupTable.object.order_by('groupID')
     return render(request, 'fc/user.html', {'set_list': setList,})
 
