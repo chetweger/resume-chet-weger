@@ -9,7 +9,6 @@
 </form>
 </div>
 
-<!--
 <div class = "content">
     <h3>Sets Library:</h3>
     <ol id="notes">
@@ -31,6 +30,5 @@
     <input type="submit" value="Create New Set">
     </form>
 </div>
--->
 
 {% endblock %}
