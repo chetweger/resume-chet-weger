@@ -3,8 +3,8 @@
 
 <div class = "header">
 <h3>Review or create flashcard sets.</h3>
-<a align="left" href="/user_preferences/">User Preferences</a>
-<form align="right" method="post" action="/log_out/">{% csrf_token %}
+<a align="center" href="/user_preferences/">User Preferences</a>
+<form align="center" method="post" action="/log_out/">{% csrf_token %}
         <input type ="submit" value ="Log Out">
 </form>
 </div>
