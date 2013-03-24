@@ -12,6 +12,7 @@
 <div class = "content">
     <h3>Sets Library:</h3>
     <ol id="notes">
+        {% if set_list %}
         {% for object in set_list %}
         <li>
             <a href="{{ object.get_absolute_url }}">
@@ -22,6 +23,7 @@
             </form>
         </li>
         {% endfor %}
+        {% endif %}
     </ol>
 
     <form method="post" action="/create_set/">{% csrf_token %}

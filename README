@@ -1,0 +1,2 @@
+I promoted the CYAN database:
+HEROKU_POSTGRESQL_CYAN_URL: postgres://bipzuidntioeqt:fRuqINadfy6pn2jIQeaRJuLGZA@ec2-107-21-107-194.compute-1.amazonaws.com:5432/dchpodnokpi72a
