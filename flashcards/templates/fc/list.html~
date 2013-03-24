@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="new">
+<a href="/">Return to User Profile Page</a> <br>
+  <h2> Make a new flashcard:</h2>
+  <form method="post" action={{url_create}}>{% csrf_token %}
+  <label for="order">Order</label>
+	<br>
+  <input type="text" name="order" id="order">
+	<br>
+  <label for="front">Front</label>
+	<br>
+  <input type="text" name="front" id="front">
+	<br>
+  <label for="back">Back</label>
+	<br>
+  <input type="text" name="back" id="back">
+	<br>
+  <input type="submit" value="Create">
+  </form>
+</div>
+<div class="list">
+  <h2> Flashcards in the Current Set:</h2>
+  <ol id="notes">
+    {% for object in card_list %}
+    <li><a href="{{ object.get_absolute_url }}">Front: {{ object.front }}<br> Back: {{object.back}}<br> Order: {{object.cardID}}</a></li>
+    {% endfor %}
+  </ol>
+</div>
+{% endblock %}
+{% endblock %}

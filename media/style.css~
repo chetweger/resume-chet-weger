@@ -1,0 +1,21 @@
+body{
+    background-color:#b0c4de;
+}
+
+.header{
+    text-align:left;
+}
+
+.content{
+
+}
+
+a{
+display: inline;
+}
+form{
+display: inline;
+}
+h3{
+display: inline;
+}

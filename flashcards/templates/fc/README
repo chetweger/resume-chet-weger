@@ -1,0 +1,5 @@
+The base html file (one director lower) contains common html boilerplate code.
+
+user.html lists the sets that belong to a user (author = Michael).
+list.html lists the flashcards in a set (author = Chet).
+fc_detail.hhtml displays the details of a flashcard (author = Chet).
