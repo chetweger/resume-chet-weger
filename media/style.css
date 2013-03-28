@@ -1,21 +1,31 @@
 body{
-    background-color:#b0c4de;
+    background-color:#C0C0C0;
 }
 
 .header{
- //*   text-align:left; *//
+    background-color:#4169E1;
+    border: 1px solid grey;
+    overflow: auto;
+    width: 96%;
+    margin-left: 2%;
 }
+
+.header .logo{ 
+    float: left;
+    display: inline-block;
+}
+
+.header .navigation{
+    float: right;
+    display: inline-block;
+}
+
+
 
 .content{
-
-}
-
-a{
-display: inline;
-}
-form{
-display: inline;
-}
-h3{
-display: inline;
+    margin-top: 1em;
+    background-color:#4169E1;
+    border: 1px solid grey;
+    width: 80%;
+    margin-left: 10%;
 }

@@ -1,31 +1,42 @@
 {% extends "base.html" %}
 {% block content %}
+<!-- csrf_token helps to verify form input from malicious attack -->
 
 <div class = "header">
-<h3>Review or create flashcard sets.</h3>
-<a align="center" href="/user_preferences/">User Preferences</a>
-<form align="center" method="post" action="/log_out/">{% csrf_token %}
+<h2 class = "logo">E-FLASHCARDS</h2>
+<br>
+<form class="navigation" align="center" method="post" action="/log_out/">{% csrf_token %}
         <input type ="submit" value ="Log Out">
 </form>
 </div>
 
 <div class = "content">
-    <h3>Sets Library:</h3>
-    <ol id="notes">
-        {% if set_list %}
-        {% for object in set_list %}
-        <li>
-            <a href="{{ object.get_absolute_url }}">
-            {{ object.setName }}
-            </a>
-            <form method="post" action="/user/set/{{object.setID}}/delete_set/">{% csrf_token %}
-            <input type="submit" value="Delete">
-            </form>
-        </li>
-        {% endfor %}
-        {% endif %}
-    </ol>
+    {% if set_list %}
+    <h3>Sets in library:</h3>
+    {% for object in set_list %}
+    <li>
+        <a style="display: inline-block"  href="{{ object.get_absolute_url }}">
+        {{ object.setName }}
+        </a>
+        <form style="display: inline-block" method="get" action="/user/set/{{object.setID}}/review/0/False/">{% csrf_token %}
+        <input type="submit" value="Review">
+        </form>
 
+        <form style="display: inline-block" method="get" action="/set/{{object.setID}}/">{% csrf_token %}
+        <input type="submit" value="Modify">
+        </form>
+
+        <form style="display: inline-block" method="post" action="/user/set/{{object.setID}}/delete_set/">{% csrf_token %}
+        <input type="submit" value="Delete">
+        </form>
+
+    </li>
+    {% endfor %}
+    {% endif %}
+</div>
+
+<div class = "content">
+    <h3>Create a new flashcard set:</h3>
     <form method="post" action="/create_set/">{% csrf_token %}
     <label for="setName">Set Name</label>
     <input type="text" name="setName" id="setName">

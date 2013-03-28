@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class = "header">
+<h2 class = "logo">E-FLASHCARDS</h2>
+<br>
+<form class="navigation" align="center" method="post" action="/log_out/">{% csrf_token %}
+        <input type ="submit" value ="Log Out">
+</form>
+<a class="navigation" href="/user/">Return to User Profile Page</a>
+</div>
+<!--Above formatting trick described at http://css-tricks.com/left-align-and-right-align-text-on-the-same-line/ -->
+
+<div class = "content">
+    <h3>Congradulations, you finished reviewing your set.</h3>
+</div>
+
+{% endblock %}

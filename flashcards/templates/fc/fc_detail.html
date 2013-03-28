@@ -1,26 +1,33 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="header">
-  <a href={{list_url}}> Back to Index </a>
-</div>
 
-  <form method="post" action="/set/{{object.setID}}/card/{{object.cardID}}/delete_card/">{% csrf_token %}
-  <input type="submit" value="Delete Flashcard">
+
+<div class="header">
+  <h2 class = "logo">E-FLASHCARDS</h2>
+
+  <br>
+    <form class="navigation" align="center" method="post" action="/log_out/">{% csrf_token %}
+  <input type ="submit" value ="Log Out">
   </form>
 
-<div class="detail">
+    <a class="navigation"  href={{list_url}}>Back to List Page</a>
+</div>
+
+<div class="content">
+  <h2> Update the Flashcard:</h2>
   <form method="post" action="update/">{% csrf_token %}
-  <div class="text">
-   <label for="slug">Order:</label><br>
-    <input type="text" name="order" id="order" value="{{ object.cardID }}">
-  </div>
    <label for="slug">Front:</label><br>
   <textarea name="front" id="front">{{ object.front }}</textarea>
 	<br>
    <label for="slug">Back:</label><br>
   <textarea name="back" id="back">{{ object.back }}</textarea>
    <br>
-  <input class="submit" type="submit" value="update flashcard">
+  <input class="submit" type="submit" value="Update">
+  </form>
+  
+  <form method="post" action="/set/{{object.setID}}/card/{{object.cardID}}/delete_card/">  
+    {% csrf_token %}
+    <input type="submit" value="Delete">
   </form>
 </div>
 {% endblock %}

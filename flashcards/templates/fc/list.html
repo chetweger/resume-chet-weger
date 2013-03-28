@@ -1,13 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="new">
-<a href="/">Return to User Profile Page</a> <br>
-  <h2> Make a new flashcard:</h2>
-  <form method="post" action={{url_create}}>{% csrf_token %}
-  <label for="order">Order</label>
-	<br>
-  <input type="text" name="order" id="order">
-	<br>
+
+<div class="header">
+  <h2 class = "logo">E-FLASHCARDS</h2>
+  <br>
+  <form class="navigation" align="center" method="post" action="/log_out/">{% csrf_token %}
+  <input type ="submit" value ="Log Out">
+  </form>
+  <a class="navigation" href="/user/">Return to User Profile Page</a> 
+</div>
+
+<div class="content">
+<h2> Make a new flashcard:</h2>
+<form method="post" action={{url_create}}>{% csrf_token %}
   <label for="front">Front</label>
 	<br>
   <input type="text" name="front" id="front">
@@ -17,18 +22,18 @@
   <input type="text" name="back" id="back">
 	<br>
   <input type="submit" value="Create">
-  </form>
+</form>
 </div>
-<div class="list">
 
+<div class="content">
   <ol id="notes">
+    <h2> Flashcards in the Current Set:</h2>
     {% if card_list %}
       {% for object in card_list %}
-        <h2> Flashcards in the Current Set:</h2>
         <li>
         <a href="{{ object.get_absolute_url }}">
         Front: {{ object.front }}<br> 
-        Back: {{object.back}}<br> Order: {{object.cardID}}
+        Back: {{object.back}}<br>
         </a>
         </li>
       {% endfor %}
@@ -36,4 +41,5 @@
     {% endif %}
   </ol>
 </div>
+
 {% endblock %}

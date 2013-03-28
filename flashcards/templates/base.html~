@@ -1,10 +1,15 @@
 <html> <head>
-<title>{% block title %}Notes.DjApp{% endblock %}</title>
+<title>{% block title %}Chet Weger{% endblock %}</title>
 <link rel="stylesheet" href="/media/style.css">
+
+<script type="text/javascript">
+	function showStuff(id) {
+		document.getElementById(id).style.display = 'block';
+	}
+</script>
+
 </head>
 <body>
-<div class="container">
 {% block content %}{% endblock %}
-</div>
 </body>
 </html>

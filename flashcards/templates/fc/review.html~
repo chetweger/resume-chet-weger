@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class = "header">
+<h2 class = "logo">E-FLASHCARDS</h2>
+<br>
+<form class="navigation" align="center" method="post" action="/log_out/">{% csrf_token %}
+        <input type ="submit" value ="Log Out">
+</form>
+<a class="navigation" href="/user/">Return to User Profile Page</a>
+</div>
+
+<div class = "content">
+<a href="#" onclick="show_back('back'); return false;">
+  <h3> {{flashcard.front}} </h3>
+</a>
+</div>
+
+<div class = "content">
+<span id="back" style="display: none;">
+  <h3> {{flashcard.back}} </h3>
+</span>
+<br>
+</div>
+
+{% endblock %}
