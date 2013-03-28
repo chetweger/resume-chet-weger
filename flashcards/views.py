@@ -70,6 +70,7 @@ def update_card(request, setID, cardID):
 def list_materials(request):
     setList = userSetTable.objects.order_by('setID')[0:MAX_SIZE_SETS]
     assert len(setList) == len(userSetTable.objects.all())
+    print "length of setList", len(setList), "length of all", len(userSetTable.objects.all())
     return render(request, 'fc/user.html', {'set_list': setList,})
 
 ''' deletes the current set '''
