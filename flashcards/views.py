@@ -13,12 +13,20 @@ from models import userSetTable
 from django.http import HttpResponseRedirect, HttpResponsePermanentRedirect, HttpResponseServerError
 from django.shortcuts import render
 from django.contrib.auth import logout
+import os
 
+HOME = os.getcwd()
 MAX_SIZE_SETS = 100
 
 ''' show my resume '''
 def resume(request):
-    return render(request, 'fc/Resume.html')
+    get_trio =  '/get_trio/'
+    return render(request, 'fc/Resume.html', {'get_trio': get_trio,})
+
+def get_trio(request):
+    response = HttpResponse(wrapper, content_type = 'application/py')
+    response['Content-Disposition'] = 'attachment; filename = /media/trio.py'
+    return response
 
 ''' lists card in current set '''
 def list_card(request, setID):

@@ -285,6 +285,9 @@ def getFirstPlayer():
         else:
             print messageTryAgain
 
+'''
+adopted from Nicholas Schorer
+'''
 def playTrio(firstPlayer):
     """ Play the game, given first player, or stop. """
     state = State()
