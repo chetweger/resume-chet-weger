@@ -7,6 +7,7 @@ import settings
 
 urlpatterns = patterns('',
     (r'^$','flashcards.views.resume'),
+    (r'^resume/$','flashcards.views.resume'),
     (r'^get_trio/$', 'flashcards.views.get_trio'),
     (r'^set/(?P<setID>[-\w]+)/$','flashcards.views.list_card'),
 
