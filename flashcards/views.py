@@ -16,6 +16,9 @@ from django.contrib.auth import logout
 
 MAX_SIZE_SETS = 100
 
+''' show my resume '''
+def resume(request):
+    return render(request, 'fc/Resume.html')
 
 ''' lists card in current set '''
 def list_card(request, setID):
@@ -102,8 +105,10 @@ def log_out(request):
     logout(request)
     return HttpResponseServerError("User accounts not implemented yet.")
 
-# sets all cards as unreviewed when we start a review session
-# (this is a wrapper function)
+'''
+sets all cards as unreviewed when we start a review session
+(this is a wrapper function)
+'''
 def start_review(request, setID, cardID, gotRight):
     allCards = cardTable.objects.filter(setID = setID)
     for card in allCards:

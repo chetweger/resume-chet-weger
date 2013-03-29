@@ -16,7 +16,7 @@ urlpatterns = patterns('',
 
     (r'^media/(?P<path>.*)$', 'django.views.static.serve', { 'document_root': settings.MEDIA_ROOT }),
 
-    (r'^$','flashcards.views.list_materials'),
+    (r'^$','flashcards.views.resume'),
     (r'^user/$','flashcards.views.list_materials'),
 
     (r'^user/set/(?P<setID>[-\w]+)/delete_set/$', 'flashcards.views.delete_set'),

@@ -1,0 +1,31 @@
+body{
+}
+
+.center{
+    text-align: center;
+}
+
+.twoColumns{
+    overflow: auto;
+    width: 96%;
+    margin-left: 2%;
+}
+
+.twoColumns .left{ 
+    float: left;
+    display: inline-block;
+    padding-right:50px;
+}
+
+.twoColumns .right{
+    float: left;
+    display: inline-block;
+}
+
+
+
+.container{
+    margin-top: 3em;
+    width: 90%;
+    margin-left: 5%;
+}

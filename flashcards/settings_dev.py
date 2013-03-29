@@ -1,4 +1,6 @@
 # Django settings for flashcards project.
+#
+# This file is intended for 
 
 import os
 CURRENT_PATH = os.getcwd()
