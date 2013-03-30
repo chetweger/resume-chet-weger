@@ -25,6 +25,9 @@
 <form align="center" method="post" action="/user/set/{{flashcard.setID}}/review/{{flashcard.cardID}}/True/">{% csrf_token %}
         <input type ="submit" value ="Don't Repeat This Card (Correct)">
 </form>
+<form align="center" method="post" action="/set/{{flashcard.setID}}/card/{{flashcard.cardID}}/">{% csrf_token %}
+        <input type ="submit" value ="Modify This Card">
+</form>
 </span>
 <br>
 </div>

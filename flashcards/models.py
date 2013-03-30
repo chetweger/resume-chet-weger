@@ -1,7 +1,4 @@
 '''
-Author:
-Eli
-
 Description:
 These python classes create and describe the database tables needed
 for our project.

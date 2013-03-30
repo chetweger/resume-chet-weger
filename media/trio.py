@@ -1,7 +1,7 @@
 #!python
 
 # Trio! Command-Line Interface (CLI)
-# authors: Robert Keller, Chet Weger and Nicholas Schorer
+# author: Chet Weger
 # purpose: Presents a simple interface the Trio! game, as explained in assignment 3
 #
 # My program works ok... I think it has 3x3 solved.  However, it's pretty slow on larger boards

@@ -31,10 +31,22 @@
     {% if card_list %}
       {% for object in card_list %}
         <li>
-        <a href="{{ object.get_absolute_url }}">
-        Front: {{ object.front }}<br> 
-        Back: {{object.back}}<br>
+        <a style="display: inline-block" href="{{ object.get_absolute_url }}">
+        Front: "{{ object.front }}" 
+        Back: "{{object.back}}"
         </a>
+        <form style="display: inline-block" method="post" action='/user/set/{{object.setID}}/review/{{object.cardID}}/'>
+            {% csrf_token %}
+            <input type='submit' value='Review'>
+        </form>
+        <form style="display: inline-block" method="post" action='{{object.get_absolute_url}}'>
+            {% csrf_token %}
+            <input type='submit' value='Modify'>
+        </form>
+        <form style="display: inline-block" method="post" action='/set/{{object.setID}}/card/{{object.cardID}}/delete_card/'>
+            {% csrf_token %}
+            <input type='submit' value='Delete'>
+        </form>
         </li>
       {% endfor %}
     {% else %}

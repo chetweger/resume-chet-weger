@@ -29,5 +29,10 @@
     {% csrf_token %}
     <input type="submit" value="Delete">
   </form>
+
+  <form method="post" action="/user/set/{{object.setID}}/review/{{object.cardID}}/">  
+    {% csrf_token %}
+    <input type="submit" value="Review">
+  </form>
 </div>
 {% endblock %}

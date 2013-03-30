@@ -10,23 +10,40 @@ models and templates.
 from django.core.context_processors import csrf
 from models import cardTable
 from models import userSetTable
-from django.http import HttpResponseRedirect, HttpResponsePermanentRedirect, HttpResponseServerError
+from django.http import HttpResponseRedirect, HttpResponsePermanentRedirect, HttpResponseServerError, HttpResponse
 from django.shortcuts import render
 from django.contrib.auth import logout
-import os
+from django.core.servers.basehttp import FileWrapper
+import os, tempfile, zipfile
 
 HOME = os.getcwd()
 MAX_SIZE_SETS = 100
+
+''' return a file attachment for given filename '''
+def getFileResponse(filename):
+    fullFN = HOME + '/media/' + filename
+    trio = open(fullFN, 'r')
+    list = trio.readlines()
+    result = reduce( (lambda x, y: x+y), list)
+    response = HttpResponse(result)
+    response['Content-Disposition'] = 'attachment; filename = ' + fullFN
+    return response
+
+''' return file response '''
+def get_trio(request):
+    print "WAS called trololol"
+    response = getFileResponse('trio.py')
+    print "was reached i dunno"
+    return response
+
+''' show printable resume '''
+def printable_resume(request):
+    return render(request, 'fc/printable_resume.html')
 
 ''' show my resume '''
 def resume(request):
     get_trio =  '/get_trio/'
     return render(request, 'fc/Resume.html', {'get_trio': get_trio,})
-
-def get_trio(request):
-    response = HttpResponse(wrapper, content_type = 'application/py')
-    response['Content-Disposition'] = 'attachment; filename = /media/trio.py'
-    return response
 
 ''' lists card in current set '''
 def list_card(request, setID):
@@ -82,7 +99,8 @@ def list_materials(request):
     setList = userSetTable.objects.order_by('setID')[0:MAX_SIZE_SETS]
     assert len(setList) == len(userSetTable.objects.all())
     print "length of setList", len(setList), "length of all", len(userSetTable.objects.all())
-    return render(request, 'fc/user.html', {'set_list': setList,})
+    trio_url = '/get_trio/'
+    return render(request, 'fc/user.html', {'set_list': setList, 'trio_url': trio_url,})
 
 ''' deletes the current set '''
 def delete_set(request, setID):
@@ -97,14 +115,15 @@ def delete_set(request, setID):
 def create_set(request):
     if request.method == "POST":
         post = request.POST.copy()
-        if post.has_key('setName'):
-            if len(userSetTable.objects.all()) <= MAX_SIZE_SETS:
+        if (post.has_key('setName') and len(post['setName']) > 0 and
+                    len(userSetTable.objects.filter(setName = post['setName'])) == 0):
+            if len(userSetTable.objects.all()) < MAX_SIZE_SETS:
                 order = len(userSetTable.objects.all())
                 setName = post['setName']
                 new_set = userSetTable.objects.create(setID=order, setName=setName)
                 return HttpResponsePermanentRedirect('/user/')
             else: error_msg = u"Maximum size of sets reached.  Please delete some of you sets."
-        else: error_msg = u"Insufficient POST data (enter in forms)"
+        else: error_msg = u"Enter unique and valid set name"
     else: error_msg = u"No POST data sent."
     return HttpResponseServerError(error_msg)
 
@@ -122,6 +141,7 @@ def start_review(request, setID, cardID, gotRight):
     for card in allCards:
         # Now that we are finish with set, reset right values
         card.right = False
+        card.save()
     return get_next_card(request, setID, cardID, gotRight)
 
 '''
