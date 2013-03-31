@@ -4,12 +4,8 @@
 # author: Chet Weger
 # purpose: Presents a simple interface the Trio! game, as explained in assignment 3
 #
-# My program works ok... I think it has 3x3 solved.  However, it's pretty slow on larger boards
-# because I have a very slow utility function and I make alot of copies which is very expensive.
-# 
 
 from random import randrange
-import numpy as numpy_library
 import itertools as itertools
 import copy
 import time
