@@ -13,7 +13,7 @@ Filetypes:
     Above all describe the same graph.
 
 To view a paper describing my project for Social Network Analysis visit:
-http://chet-weger.herokuapp/Social_Network_Analysis/
+http://chet-weger.herokuapp.com/Social_Network_Analysis/
 
 structure and size.
 To make an Erdos-Renyi file, type:
