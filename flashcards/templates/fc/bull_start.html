@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- csrf_token helps to verify form input from malicious attack -->
+
+<div class = "header">
+<h2 class = "logo">Bulls and Cows</h2>
+<br>
+</div>
+
+<div class = "content">
+  <h2> Plays so far:</h2>
+  <ol id="notes">
+    {% if card_list %}
+      {% for object in card_list %}
+        <li>
+        <a style="display: inline-block" href="{{ object.get_absolute_url }}">
+        Human Move: "{{ object.human }}" <br>
+        Computer Move: "{{object.computer}}"
+        </a>
+        </li>
+      {% endfor %}
+    {% else %}
+    {% endif %}
+  </ol>
+</div>
+
+<div class = "content">
+    <h3>Guess the other player's four digit number:</h3>
+    <form method="post" action="/bull_play/">{% csrf_token %}
+    <label for="playerDigit">Set Name</label>
+    <input type="text" name="playerDigit" id="playerDigit">
+    <input type="submit" value="Enter">
+    </form>
+</div>
+
+{% endblock %}

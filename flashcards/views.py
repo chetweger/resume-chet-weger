@@ -19,6 +19,15 @@ import os, tempfile, zipfile
 HOME = os.getcwd()
 MAX_SIZE_SETS = 100
 
+'''returns sna html'''
+def sna(request):
+    return render(request, 'fc/SNA.html')
+
+''' return sna.py project '''
+def get_sna(request):
+    response = getFileResponse('sna.py')
+    return response
+
 ''' return a file attachment for given filename '''
 def getFileResponse(filename):
     fullFN = HOME + '/media/' + filename

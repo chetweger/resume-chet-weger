@@ -1,0 +1,182 @@
+<html> <head>
+<title>Social Network Analysis Final Project</title>
+<link rel="stylesheet" href="/media/style_resume.css">
+</head>
+<body>
+
+<div class = "container">
+Chet Weger<br>
+Professor Yu<br>
+Social Network Analysis<br>
+May 8, 2013<br>
+
+<h3 align="center"> Using the Copy Model for Edge Attachment to Evaluate the Stability of Graph Clustering </h3>
+
+<p>
+<h3> Introduction: </h3>
+	My project is inspired primarily by a paper by Chen and Fields [1].  In this paper, Chen and Fields describe a novel approach to evaluating the stability of a network.  Stability is a measure of how much slight modifications to a graph effect the resulting clustering produced by a clustering algorithm.  Chen and Fields performed these slight modification by adding a single edge to the graph using the preferential model of attachment.  In this project, I followed the same methods as Chen and Fields except instead of using the preferential attachment model, I used the copy model.
+</p>
+<p>
+	Clusters are very useful in analysis of a graph or network.  A cluster is a subgroup of nodes in a graph that is highly connected.  For any two nodes in a graph, two nodes in a cluster would be more likely to be connected and share connections to other nodes than two nodes not in the same cluster.  Various graph algorithms such as the Clauset-Newman-Moore algorithm, the Louvain clustering algorithm, and the Markov Clustering Algorithm identify clusters.  
+</p>
+<p>
+	When a clustering algorithm divides a graph into clusters, it is often not clear to what extent the resulting clusters represent actual meaningful structures of a graph or conversely, to what extent they are a result of random noise.  Both modularity and stability attempt to act as proxy measurements to ascertain the significance of a given clustering.
+</p>
+	The notion of stability was introduced by [2], and Chen and Fields provide a simpler method of analyzing graph stability by adding a single edge using the preferential model of attachment.  To compare the resulting clusterings produced, Chen and Fields used several distance measurements including the Jaccard distance, the Split-Join distance, and the NMI distance measurement (I only use the Split-Join and the NMI distance measures). Since they were measuring distance, this means that higher distance values correspond to lower stability and vice versa. Chen and Fields analyzed the stability of graph known to have a high degree of clustering such as the largest known network of PGP users as well as graphs without strong clustering structures such as the Erdos-Renyi random graph.  As expected, Chen and Fields found that the graphs with more clustering effects had lower distance values which means they are more stable.  In addition, Chen and Fields found that the MCL algorithm produced significantly more stable clusterings than the CNM algorithm.
+</p>
+<p>
+	To perturb an input graph, Chen and Fields used the preferential attachment model to add an extra edge to the input graph.  The preferential attachment model attempts to randomly add an edge to the graph, but it adjusts for the fact that nodes with more edges are more likely to have another edge added.  To add an edge to the graph, two nodes are chosen.  The first node is chosen with probability equal to the chance of selecting any other node (all nodes have the same chance of being selected), and the second node is selected with probability proportional to the number of edges it already possesses.  Then, an edge is drawn between these two selected notes, completing the process.
+</p>
+<p>
+	In my project, I used the copy mechanism [3] of edge selection for undirected graphs as opposed to the preferential attachment model.  The copy model of edge selection first selects a prototype node, and another node P, both at random.  Then an edge is added between P and one of the prototype's neighbors (the neighbors have equal probability of being chosen).  I expect that using this method of perturbation will not change the overall results and that networks with higher clustering (such as the pgp graph) which still display higher stability.
+</p>
+<p>
+<strong>The MCL Algorithm: </strong>
+	The MCL algorithm is one of the two graph clustering algorithms that I used in this project.  The intuition behind this algorithm can be explained by the following thought experiment.  Imagine starting from a node within a cluster on some graph and then taking a random walk for a few steps.  The probability that one will end up in that same cluster is larger than the probability that one will jump to another cluster because for a given number of steps, there are more walks between two nodes in the same cluster than there are between two nodes in different clusters.  This basic idea is what makes the MCL algorithm work.
+</p>
+<p>
+	The MCL algorithm relies on the use of stochastic or markov matrices.  A markov matrix uses <em>n</em> rows and <em>n</em> columns to represent the probabilities of random walks in a graph with <em>n</em> nodes.  Precisely, for a markov matrix raised to the power <em>z</em> (where <em>z</em> is a whole number), the probability of ending up at vertex <em>j</em> after <em>z</em> steps and starting at vertex <em>i</em> is given by the cell at column <em>j</em> and row <em>i</em>.
+</p>
+
+The pseudo-code for the MCL algorithm is as follows[4]: <br>
+<Pre>
+<t>	add loops to G <br>
+	set r to some value # affects granularity  <br>
+	set M_1 to be the matrix of random walks on G  <br>
+	while (change) {  <br>
+		M_2 = M_1 * M_1 # expansion  <br>
+		M_1 = Γ(M_2) # inflation  <br>
+		change = difference(M_1, M_2)  <br>
+	} 
+</Pre>
+<p>
+	Before the MCL algorithm begins, loops are added to all the vertices to increase the probability of walks staying within clusters. Then the algorithm begins to find the clusters by iteratively using expansion and inflation.  In expansion, the markov matrix is squared thus finding the probabilities of longer walks.  In inflation, each cell is raised to some power r, and then multiplied by a constant so that the sum of a row is once again equal to one.  The purpose of inflation is to “boost” the probabilities of intra-cluster walks versus inter-cluster walks, thus causing the less likely walks to diverge to zero.  The effect of converging to zero is what is essential to the clustering process (once a edge-probability has converged to zero, the edge has been in effect removed; this is how bridges between clusters are removed). When the cells are raised to a higher power, this has the effect of causing more edge-probabilities to converge to zero.
+</p>
+<p>
+<strong>The CNM algorithm:</strong>
+	Unlike the MCL algorithm, the CNM algorithm proceeds by attempting to maximize modularity.  It begins by treating each node as a cluster and then merging clusters based on number of connections.  This process stops when maximum modularity has been achieved.
+</p>
+<p>
+<strong>Distance Measures:</strong>
+For this project, I used the Split-join distance measure and the normalized mutual information measure (nmi).  The split join distance measures the number of vertexes that must be moved from one cluster to the other to make two clusterings the same.  The nmi distance measure relies on information theoretic measures of the content of clusters.
+</p>
+<p>
+<h3>Methods:</h3>
+For this project I used the methods described by Fields and Chen.  My code is available at 
+<a href='/get_sna/'>[6]</a>.
+</p>
+
+<h3>Results:</h3>
+<p>
+<strong>Table 1.</strong> Summary of MCL algorithm for 100 iterations:
+
+<table border="1">
+<tr>
+  <th>Dist. metric</th>
+  <th colspan="4">Split-Join (sj)</th>
+  <th colspan="4">NMI</th>
+</tr>
+<tr>
+  <td></td>
+  <td>Min</td>
+  <td>Mean</td>  
+  <td>Std. Dev.</td>
+  <td>Max</td>
+  <td>Min</td>
+  <td>Mean</td>  
+  <td>Std. Dev.</td>
+  <td>Max</td>
+</tr>
+
+<tr>
+  <td>pgp (100 iterations)</td>
+  <td> 0.0 </td>  
+  <td> 5.3e-05 </td>
+  <td> 6.9e-05 </td>
+  <td> 2.8e-04 </td>
+  <td> 0.0 </td>
+  <td> 1.7e-05 </td>
+  <td> 2.3e-05 </td>
+  <td> 1.0e-04 </td>
+</tr>
+
+<tr>
+  <td>er-5000 (50 iterations)</td>
+  <td> 0.0 </td>  
+  <td> 0.0 </td>
+  <td> 0.0 </td>
+  <td> 0.0 </td>
+  <td> 0.0 </td>
+  <td> 0.0 </td>
+  <td> 0.0 </td>
+  <td> 0.0 </td>
+</tr>
+</table>
+
+</p>
+<p>
+<strong>Table 2.</strong> Summary of FMod or CNM algorithm for 50 iterations:
+
+<table border="1">
+<tr>
+  <th>Dist. metric</th>
+  <th colspan="4">Split-Join (sj)</th>
+  <th colspan="4">NMI</th>
+</tr>
+<tr>
+  <td></td>
+  <td>Min</td>
+  <td>Mean</td>  
+  <td>Std. Dev.</td>
+  <td>Max</td>
+  <td>Min</td>
+  <td>Mean</td>  
+  <td>Std. Dev.</td>
+  <td>Max</td>
+</tr>
+
+<tr>
+  <td>pgp (100 iterations)</td>
+  <td> 0.05 </td>  
+  <td> 0.09 </td>
+  <td> 0.02 </td>
+  <td> 0.11 </td>
+  <td> 0.05 </td>
+  <td> 0.08 </td>
+  <td> 0.01 </td>
+  <td> 0.11 </td>
+</tr>
+
+<tr>
+  <td>er-5000 (50 iterations)</td>
+  <td> 0.63 </td>  
+  <td> 0.67 </td>
+  <td> 0.016 </td>
+  <td> 0.70 </td>
+  <td> 0.97 </td>
+  <td> 0.98 </td>
+  <td> 0.005 </td>
+  <td> 0.99 </td>
+</tr>
+</table>
+
+</p>
+
+<p>
+<h3>Analysis:</h3>
+My results seem to support the results of Chen and Fields.  The general trends in the data are the same with the MCL algorithm producing clustering with much greater stability than the CNM algorithm.  In addition, the pgp graph displays more stability than the er-5000 graph as expected.  Since the copy model and preferential attachment are known to produce graphs with different edge-degree distributions, it is not surprising that distance values are not the same.1  The only surprising part of my results were that the er-5000 distance measures were 0 for the MCL algorithm. (This may be a result of a bug; I wrote my own code and did not borrow code by Chen and Fields.)  For future inquiry, it would be interesting to understand if this is the result of an error in my code or if the results are correct.
+</p>
+
+<p>
+<h3>Bibliography:</h3>
+[1] Tzu-Yi Chen, and Evan Fields: Evaluating the stability of communities found by clustering algorithms. CompleNet (2013). <br>
+[2] J.-C. Delvenne, S. N. Yaliraki, and M. Barahona: Stability of graph communities across time scales.  2010 107 (29) 12755-12760; published ahead of print June 30, 2010, doi:10.1073/pnas.0903215107.  URL http://www.pnas.org/content/107/29/12755 <br>
+[3] A. Vazquez, A. Flammini, A. Maritan, A. Vespignani:  Modeling of protein interaction networks. ComPlexUs 1, 38 (2003). URL http://arxiv.org/abs/cond-mat/0108043 <br>
+[4] Pseudo-code taken from URL http://micans.org/mcl/index.html <br>
+[5] Stijn van Dongen, A cluster algorithm for graphs. Technical Report INS-R0010, National Research Institute for Mathematics and Computer Science in the Netherlands, Amsterdam, May 2000.  URL http://micans.org/mcl/lit/INS-R0010.ps.Z <br>
+[6] Personal blog. URL http://chet-weger.herokuapp/social_network_analysis/ 
+</p>
+</div>
+
+</body>
+</html>

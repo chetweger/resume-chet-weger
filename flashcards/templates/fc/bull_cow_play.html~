@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- csrf_token helps to verify form input from malicious attack -->
+
+<div class = "header">
+<h2 class = "logo">Bulls and Cows</h2>
+<br>
+<form class="navigation" align="center" method="post" action="/">{% csrf_token %}
+        <input type ="submit" value ="Back to Chet's Resume">
+</form>
+</div>
+
+<div class = "content">
+    <h3>Guess the other player's four digit number:</h3>
+    <form method="post" action="/bull_play/">{% csrf_token %}
+    <label for="playerDigit">Set Name</label>
+    <input type="text" name="playerDigit" id="playerDigit">
+    <input type="submit" value="Enter">
+    </form>
+</div>
+
+{% endblock %}

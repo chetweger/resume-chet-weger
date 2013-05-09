@@ -33,4 +33,9 @@ urlpatterns = patterns('',
     # other
     (r'^media/(?P<path>.*)$', 'django.views.static.serve', { 'document_root': settings.MEDIA_ROOT }),
     (r'^log_out/$','flashcards.views.log_out'),
+
+    # Social Network analysis:
+    (r'^Social_Network_Analysis/$', 'flashcards.views.sna'),
+    (r'^get_sna/$', 'flashcards.views.get_sna'),
+
 )

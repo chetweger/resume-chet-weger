@@ -4,7 +4,7 @@
 </head>
 <body>
 
-<div class = "content">
+<div class = "container">
 
 <h2 style = "display: inline">Chester (Chet) Karl Weger</h2> <br>
 <i>ckw02010@mymail.pomona.edu</i><br>
@@ -12,19 +12,19 @@ http://chet-weger.herokuapp.com/
 <br>
 <br>
 
-<strong> Objective:</strong> To obtain a computer science internship for summer 2013.
+<strong> Purpose:</strong> To obtain a job after graduation in spring, 2015.
 
 <br>
 <br>
 
 <strong> Example Projects: </strong>
 <li> <a href="/user/">E-FLASHCARDS (http://chet-weger.herokuapp.com/user/)</a> </li>
-<li> <a href={{trio_file}}>Trio min/max  adversary search with alpha-beta prunning (python file)</a> </li>
+<li> <a href='/get_trio/'>Trio min/max  adversary search with alpha-beta prunning (python file) </a> </li>
 <br>
 
 <strong>Employment:</strong> <br>
 <li> Was a tutor for Harvey Mudd Upward Bound Program </li>
-<li> Was T.A. for POM CS052: Foundation of Computer Science </li>
+<li> Was T.A. for POM CS052: Foundations of Computer Science </li>
 <li> Currently developing a website for reporting stolen bikes </li>
 
 <br>
@@ -59,9 +59,10 @@ http://chet-weger.herokuapp.com/
   Libraries:<br>
   &#149; Django<br>
   &#149; pygame<br>
-  &#149; OpenCV
   </p>
+</div>
 
+<div class = "twoColumns">
   <p class = "left">
   Content Representation:<br>
   &#149; CSS<br>
@@ -76,11 +77,9 @@ http://chet-weger.herokuapp.com/
   </p>
 </div>
 
-<strong> References: </strong> Will be provide if requested.
+<strong> References: </strong> Will be provided if requested.
+
+</container>
 
 </body>
 </html>
-
-
-
-
