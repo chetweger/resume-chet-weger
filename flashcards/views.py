@@ -28,6 +28,10 @@ def get_sna(request):
     response = getFileResponse('sna.py')
     return response
 
+''' returns AI meta-tic-tac-toe '''
+def meta(request):
+    return render(request, 'fc/Meta_Tic-Tac-Toe.html')
+
 ''' return a file attachment for given filename '''
 def getFileResponse(filename):
     fullFN = HOME + '/media/' + filename

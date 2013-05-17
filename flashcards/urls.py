@@ -38,4 +38,7 @@ urlpatterns = patterns('',
     (r'^Social_Network_Analysis/$', 'flashcards.views.sna'),
     (r'^get_sna/$', 'flashcards.views.get_sna'),
 
+    # Meta Tic-Tac-Toe:
+    (r'^Meta_Tic-Tac-Toe/$', 'flashcards.views.meta'),
+    (r'^get_meta/$', 'flashcards.views.get_meta'),
 )
