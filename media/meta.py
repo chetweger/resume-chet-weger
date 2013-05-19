@@ -1,8 +1,24 @@
+README = ''' Welcome to meta_tic-tac-toe by Chet Weger
+
+This program relies on the min-max algorithm with alpha beta
+pruning as well as temporal difference learning to learn values
+for a weighted utility function.
+
+The weightings/constants for the utility function is stored in a
+file called \"td.txt\". If you do not see such a file, you can 
+train the AI with the command:
+trainAI()
+
+You can start a new game of meta_tic-tac-toe with:
+playAI() '''
+
 import copy
 import time
 import random
 import sys
+import os
 
+CURRENT_DIR = os.getcwd()
 DIMENSION = 3
 WAIT = 5
 userFirst = 1
@@ -82,6 +98,25 @@ def checkOver(state):
     print "Final board position was:"
     state.printInfo()
     sys.exit(0)
+
+'''
+Determines if the game is over!
+If over, prints message and returns True else False.
+'''
+def isOver(state):
+    for rowBoards in state.boards:
+        for board in rowBoards:
+            if (not isFull(board)) and (not isWin(board)):
+                return False
+    if state.score['1'] == state.score['2']:
+        print "Game Over.\nBoth players tied at", state.score['2'], "points."
+    elif state.score['1'] > state.score['2']:
+        print "Game Over.\nPlayer 1 won with", state.score['1'], "points versus", state.score['2'], "points for player 2!"
+    elif state.score['1'] < state.score['2']:
+        print "Game Over.\nPlayer 2 won with", state.score['2'], "points versus", state.score['1'], "points for player 1"
+    print "Final board position was:"
+    state.printInfo()
+    return True
 
 ''' the utility function! '''
 def utility(state, constants, sub):
@@ -218,6 +253,16 @@ def transposeBoards(lBoards):
     return newList
 
 '''
+like getActive but gets all boards instead
+'''
+def getAllBoards(state):
+    active_boards = []
+    for line_boards in state.boards:
+        for board in line_boards:
+            active_boards += [board]
+    return active_boards
+
+'''
 Counts the relative number of blocking positions.
 '''
 def f5_blocking(inputState):
@@ -226,7 +271,10 @@ def f5_blocking(inputState):
     state = State()
     state.copyThis(inputState)
     blocking = {'1': 0, '2': 0, }
-    activeBoards = getActive(state)
+
+    # we count activeBoards as ALLL boards:
+    activeBoards = getAllBoards(state)
+
     activeBoardsTranspose = transposeBoards(activeBoards)
     for board in activeBoards:
         for row in board:
@@ -529,16 +577,14 @@ class State:
 ''' Face the AI in meta-ttt '''
 def playAI():
     print messageWelcome
+    global TD_CONSTS
+    TD_CONSTS = load_TD_CONSTS()
     playUntilExit()
 
 def playUntilExit():
     """ Play successive games until the user decides to stop. """
     while True:
         firstPlayer = getFirstPlayer()
-        playType = raw_input("Do you want to play against AI (1)\nor let the AI play against itself(2)?")
-        if playType.isdigit() and int(playType) == 2:
-            a = State() # create a new empty board :)
-            learning_TD_AI(a)
         if firstPlayer == 0:
             print messageGoodbye
             return
@@ -648,13 +694,15 @@ def userTurn(state):
 
 
 '''
-Simulate the computer's turn.
+Plays meta-ttt using learned TD_CONSTS data
 '''
 def computerTurn(state):
+    global TD_CONSTS
     print messageComputersTurn
+    print "AI using following constants:\n", TD_CONSTS
     checkOver(state)
     print state.printInfo()
-    (expectedUtility, nextState) = ab(state, CONSTS, True)
+    (expectedUtility, nextState) = ab(state, TD_CONSTS, True)
     print "Expected utility is: ", expectedUtility
     nextState.printInfo()
     state = copy.deepcopy(nextState)
@@ -668,19 +716,62 @@ def normalize (tdConsts):
         tdConsts['c' + str(i+1)] = tdConsts['c' + str(i+1)] / tot * norm
     return tdConsts
 
+def load_TD_CONSTS():
+    global TD_CONSTS
+    try:
+        f = open(CURRENT_DIR + '/' + "td.txt")
+        lines = f.readlines()
+        assert len(lines) == 1
+        TD_CONSTS = eval(lines[0])
+        print "Succesfully loaded file \"td.txt\""
+    except:
+        print "ERROR FILE MISSING!!\nFile \"td.txt\" not found.\nYou can run \"trainAI()\" to create this file."
+        # if td.txt does not exist, create it!
+        writeTo = open(CURRENT_DIR + '/' "td.txt", 'w+')
+        writeTo.write(str(TD_CONSTS))
+        writeTo.close()
+
+    return TD_CONSTS
+
+'''
+Learns TD data by playing learning_TD_AI against naiveAI
+'''
+def trainAI():
+    print "Starting AI training!"
+    global TD_CONSTS
+    TD_CONSTS = load_TD_CONSTS()
+    print "TD_CONSTS is currently:\n", TD_CONSTS
+    savedConsts = copy.copy(TD_CONSTS)
+    a = State()
+    learning_TD_AI(a)
+    # figure out how much TD_CONSTS has been update 
+    # (should learning continue?)
+    saved = savedConsts.values()
+    td = TD_CONSTS.values()
+    diffList = [ abs(saved[i] - td[i]) for i in range(len(TD_CONSTS))]
+    change = reduce( (lambda x, y: x+y), diffList )
+    print "TD_CONSTS update to:\n", TD_CONSTS, "\nNet change was: ", change
+    print "Finished training!"
+    writeTo = open(CURRENT_DIR + '/' "td.txt", 'w+')
+    writeTo.write(str(TD_CONSTS))
+    writeTo.close()
+    return TD_CONSTS
+
+
 def learning_TD_AI(prevState):
-    print "\n\nTD AI player starting turn...", prevState.nextPiece[2]
-    print "nativeAI", prevState.nextPiece[2]
-    checkOver(prevState)
+    global TD_CONSTS
+    print "\n\nTD AI player starting turn. TD AI places the piece:", prevState.nextPiece[2]
+    print "TD_CONSTS after being adjusted are: ", TD_CONSTS
+
+    # if over, return to trainer:
+    if isOver(prevState):
+        return TD_CONSTS
 
     # print, alpha-beta search etc.:
     SUBTRACT = False
-    global TD_CONSTS
     (expectedUtility, state) = ab(prevState, TD_CONSTS, SUBTRACT)
-    print "Expected utility is: ", expectedUtility, "\nTD_CONSTS for player",state.nextPiece[2],"are: ", TD_CONSTS
     print "Scores: Player 1: ", state.score['1'], " Player 2: ", state.score['2']
     state.printInfo()
-
 
     # modify temporal difference:
     changeTotalUtility = utility(state, TD_CONSTS, SUBTRACT) - utility(prevState, TD_CONSTS, SUBTRACT)
@@ -688,7 +779,7 @@ def learning_TD_AI(prevState):
     sub2 = subUtil(prevState, TD_CONSTS, SUBTRACT)
     changeSubUtil = [ (sub1[i] - sub2[i]) for i in range(len(sub1)) ]
     for i in range(len(TD_CONSTS)):
-        TD_CONSTS['c' + str(i+1)] += ALPHA * changeTotalUtility * abs(changeSubUtil[i])
+        TD_CONSTS['c' + str(i+1)] += ALPHA * changeTotalUtility * (changeSubUtil[i]) * (-1)
 
     # normalize
     TD_CONSTS = normalize(TD_CONSTS)
@@ -697,19 +788,19 @@ def learning_TD_AI(prevState):
     naiveAI(state)
 
 def naiveAI(state):
-    print "\n\nNaive AIs turn: "
-    print "nativeAI", state.nextPiece[2]
+    global CONSTS
+    if isOver(state):
+        learning_TD_AI(state)
+    print "\n\nNaive AIs turn which plays the piece: ", state.nextPiece[2]
     SUBTRACT = True
     checkOver(state)
     (expectedUtility, nextState) = ab(state, CONSTS, SUBTRACT)
-    print "Expected utility is: ", expectedUtility
     state = copy.deepcopy(nextState)
     print "Scores: Player 1: ", state.score['1'], " Player 2: ", state.score['2']
     state.printInfo()
-
     learning_TD_AI(state)
 
-print "To start the game enter \"main()\"."
+print README
 
 '''
 Test for f1_score

@@ -14,7 +14,7 @@ Artificial Intelligence <br>
 
 <p>
 <h3> Abstract </h3>
-I have successfully <a href="/get_meta/">implemented</a> an interactive AI for the Meta-tic-tac-toe game.  The AI I built is based on alpha-beta min-max search as well as a sophisticated utility function with six basis or sub-utility functions.  In order to build an AI successfully, it was critical to weight these basis functions properly. I planned on using temporal difference learning to find proper wieghtings.  However, I did not succeed in getting temporal difference learning to learn function weights and instead had to modify basis function weights manually through trial and error.
+I have successfully [link here] implemented an interactive AI for the Meta-tic-tac-toe game.  The AI I built is based on alpha-beta min-max search as well as a sophisticated utility function with six basis or sub-utility functions.  In order to build an AI successfully, it was critical to weight these basis functions properly. I planned on using temporal difference learning to find proper wieghtings.  However, I did not succeed in getting temporal difference learning to learn function weights and instead had to modify basis function weights manually through trial and error.
 </p>
 <p>
 <h3> Description of Game </h3>
@@ -29,7 +29,7 @@ My AI implementation for Meta-tic-tac-toe draws heavily on common sense strategi
 The objective of temporal difference learning is to learn a better prediction (or in my case utility) function by analyzing the difference between the predicted value of successor states.  A fundamental assumption of temporal difference learning is that predictions based on states that exist farther into the future are more accurate about the overall utility of a state.  Therefore, weights are updated so that past states would have a closer utility to that of their successor state.
 </p>
 <p>
-<h3> <a href="/get_meta/">Implementation</a> </h3>
+<h3> Implementation </h3>
 I built a robust and difficult to beat AI for Meta-tic-tac-toe, although I failed to implement temporal difference learning successfully.  I set effective weights for my utility function through trial and error.  My code is available here.  To run the [file], enter the python interactive terminal and execfile([file]).  A README will then be printed in the terminal.
 </p>
 <p>
@@ -51,8 +51,8 @@ To obtain estimates of board utility positions, I simply used the utility functi
 </p>
 <p>
 <h3> Bibliography </h3>
-Russell and Norvig: Artificial Intelligence A Modern Approach (Third Edition). Prentice Hall(2010).<br>
-Sutton: Learning to Predict by the Methods of Temporal Differences. Kluwer (1988).<br>
+Russell and Norvig: Artificial Intelligence A Modern Approach (Third Edition). Prentice Hall(2010).
+Sutton: Learning to Predict by the Methods of Temporal Differences. Kluwer (1988).
 </div>
 
 </body>
