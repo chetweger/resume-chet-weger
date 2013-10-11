@@ -37,6 +37,11 @@ def get_meta(request):
     response = getFileResponse('meta.py')
     return response
 
+''' returns learning.py '''
+def get_learning(request):
+    response = getFileResponse('learning.py')
+    return response
+
 ''' return a file attachment for given filename '''
 def getFileResponse(filename):
     fullFN = HOME + '/media/' + filename
