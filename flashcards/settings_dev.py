@@ -1,6 +1,6 @@
 # Django settings for flashcards project.
 #
-# This file is intended for 
+# This file is intended for
 
 import os
 CURRENT_PATH = os.getcwd()
@@ -53,7 +53,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = CURRENT_PATH + '/media'
+MEDIA_ROOT =  CURRENT_PATH + '/media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -111,7 +111,7 @@ ROOT_URLCONF = 'flashcards.urls'
 WSGI_APPLICATION = 'flashcards.wsgi.application'
 
 TEMPLATE_DIRS = (
-    CURRENT_PATH + '/templates/'
+    CURRENT_PATH + '/templates/',
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.

@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-import settings
+from django.conf import settings
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -43,4 +43,9 @@ urlpatterns = patterns('',
     # Meta Tic-Tac-Toe:
     (r'^Meta_Tic-Tac-Toe/$', 'flashcards.views.meta'),
     (r'^get_meta/$', 'flashcards.views.get_meta'),
+
+    (r'^play_meta_ttt/$', 'flashcards.views.play_meta_ttt'), # new...
+    #(r'^play_meta_ttt/(LearnMeta.*)$', 'flashcards.views.hunt')
+    #(r'^train_meta_ttt/$', 'flashcards.views.train_meta_ttt'), # new...
+    #(r'^play_ttt/$', 'flashcards.views.play_ttt'), # new...
 )

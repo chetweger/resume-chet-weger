@@ -15,9 +15,18 @@ from django.shortcuts import render
 from django.contrib.auth import logout
 from django.core.servers.basehttp import FileWrapper
 import os, tempfile, zipfile
+import settings_dev
 
 HOME = os.getcwd()
 MAX_SIZE_SETS = 100
+
+def play_meta_ttt(request):
+  print 'media location ', settings_dev.MEDIA_ROOT
+  return render(request, 'fc/LearnMeta.html')
+
+def hunt(request, hunted):
+  print hunted
+  return render(request, 'fc/LearnMeta.nocache.html')
 
 '''returns sna html'''
 def sna(request):
@@ -193,7 +202,7 @@ def get_next_card(request, setID, cardID, gotRight):
             print "cardAfter", cardsAfter
             return review(request, setID, cardsAfter[0].cardID)
         else:
-            # pick card with smallest cardID 
+            # pick card with smallest cardID
             print "CardsLeft", cardsLeft
             return review(request, setID, cardsLeft[0].cardID)
 

@@ -22,6 +22,7 @@ May 8, 2013<br>
 <p>
 	When a clustering algorithm divides a graph into clusters, it is often not clear to what extent the resulting clusters represent actual meaningful structures of a graph or conversely, to what extent they are a result of random noise.  Both modularity and stability attempt to act as proxy measurements to ascertain the significance of a given clustering.
 </p>
+<p>
 	The notion of stability was introduced by [2], and Chen and Fields provide a simpler method of analyzing graph stability by adding a single edge using the preferential model of attachment.  To compare the resulting clusterings produced, Chen and Fields used several distance measurements including the Jaccard distance, the Split-Join distance, and the NMI distance measurement (I only use the Split-Join and the NMI distance measures). Since they were measuring distance, this means that higher distance values correspond to lower stability and vice versa. Chen and Fields analyzed the stability of graph known to have a high degree of clustering such as the largest known network of PGP users as well as graphs without strong clustering structures such as the Erdos-Renyi random graph.  As expected, Chen and Fields found that the graphs with more clustering effects had lower distance values which means they are more stable.  In addition, Chen and Fields found that the MCL algorithm produced significantly more stable clusterings than the CNM algorithm.
 </p>
 <p>

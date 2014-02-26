@@ -17,7 +17,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'flashcards',                      # Or path to database file if using sqlite3.
         'USER': 'chet',                      # Not used with sqlite3.
-        'PASSWORD': '1532forfreedom',                  # Not used with sqlite3.
+        'PASSWORD': 'f',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
@@ -109,7 +109,7 @@ ROOT_URLCONF = 'flashcards.urls'
 WSGI_APPLICATION = 'flashcards.wsgi.application'
 
 TEMPLATE_DIRS = (
-    CURRENT_PATH + '/templates/'
+    CURRENT_PATH + '/templates/',
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.

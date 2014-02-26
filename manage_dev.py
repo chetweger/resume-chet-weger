@@ -1,6 +1,5 @@
 #!/usr/bin/env python
-''' 
-Purpose: manage.py for development on my laptop.
+'''Purpose: manage.py for development on my laptop.
 '''
 import os
 import sys
