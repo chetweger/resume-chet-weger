@@ -44,8 +44,7 @@ urlpatterns = patterns('',
     (r'^Meta_Tic-Tac-Toe/$', 'flashcards.views.meta'),
     (r'^get_meta/$', 'flashcards.views.get_meta'),
 
-    (r'^play_meta_ttt/$', 'flashcards.views.play_meta_ttt'), # new...
-    #(r'^play_meta_ttt/(LearnMeta.*)$', 'flashcards.views.hunt')
-    #(r'^train_meta_ttt/$', 'flashcards.views.train_meta_ttt'), # new...
-    #(r'^play_ttt/$', 'flashcards.views.play_ttt'), # new...
+    (r'^play_meta_ttt/$', 'flashcards.views.play_meta_ttt'),
+    (r'^learn_meta_ttt/(LearnMeta.*)$', 'flashcards.views.learn_meta_ttt'),
+    (r'^play_ttt/$', 'flashcards.views.play_ttt'),
 )
