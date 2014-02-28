@@ -21,20 +21,13 @@ HOME = os.getcwd()
 MAX_SIZE_SETS = 100
 
 def play_ttt(request):
-  print 'media location ', settings_dev.MEDIA_ROOT
   return render(request, 'fc/TTT.html')
 
 def play_meta_ttt(request):
-  print 'media location ', settings_dev.MEDIA_ROOT
   return render(request, 'fc/Meta.html')
 
 def learn_meta_ttt(request):
-  print 'media location ', settings_dev.MEDIA_ROOT
   return render(request, 'fc/LearnMeta.html')
-
-def hunt(request, hunted):
-  print hunted
-  return render(request, 'fc/LearnMeta.nocache.html')
 
 '''returns sna html'''
 def sna(request):

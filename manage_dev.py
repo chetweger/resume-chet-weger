@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 '''Purpose: manage.py for development on my laptop.
+Reason: I like to use sqlite locally but heroku uses posgresql.
 '''
 import os
 import sys
