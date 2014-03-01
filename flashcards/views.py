@@ -75,8 +75,8 @@ def printable_resume(request):
 
 ''' show my resume '''
 def resume(request):
-    get_trio =  '/get_trio/'
-    return render(request, 'fc/Resume.html', {'get_trio': get_trio,})
+    red = HttpResponsePermanentRedirect('/media/Chet_Weger.pdf')
+    return red
 
 ''' lists card in current set '''
 def list_card(request, setID):

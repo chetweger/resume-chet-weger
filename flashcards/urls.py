@@ -7,6 +7,7 @@ from django.conf import settings
 
 urlpatterns = patterns('',
     # view sets, create a set, and delete a set
+    (r'^asdf/$','flashcards.views.asdf'),
     (r'^user/$','flashcards.views.list_materials'),
     (r'^create_set/$','flashcards.views.create_set'),
     (r'^user/set/(?P<setID>[-\w]+)/delete_set/$', 'flashcards.views.delete_set'),
