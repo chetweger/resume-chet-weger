@@ -20,6 +20,7 @@ urlpatterns = patterns('',
     (r'^set/(?P<setID>[-\w]+)/card/(?P<cardID>[-\w]+)/delete_card/$', 'flashcards.views.delete_card'),
 
     # review a set
+    (r'faceb_signup/$', 'flashcards.views.faceb_signup'),
     (r'user/set/(?P<setID>[-\w]+)/start_review/(?P<cardID>[-\w]+)/$', 'flashcards.views.start_review'),
     (r'user/set/(?P<setID>[-\w]+)/review/(?P<cardID>[-\w]+)/(?P<gotRight>[-\w]+)/$', 'flashcards.views.get_next_card'),
     (r'user/set/(?P<setID>[-\w]+)/review/(?P<cardID>[-\w]+)/$', 'flashcards.views.review'),
