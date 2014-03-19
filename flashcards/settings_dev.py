@@ -8,6 +8,8 @@ CURRENT_PATH = os.getcwd()
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+ALLOWED_HOSTS = ['*']
+
 ADMINS = (
      #('Chet Weger', 'chetweger@gmail.com'),
 )
