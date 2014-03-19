@@ -3,7 +3,7 @@
 import os
 CURRENT_PATH = os.getcwd()
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
