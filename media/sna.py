@@ -114,7 +114,7 @@ def changeFormatToAList(abcGraph):
             AList[pair[1]] += [pair[0]]
 
     for list_nodes in AList:
-        # nodes should always be connnected to something... 
+        # nodes should always be connnected to something...
         # cluster are not size 1
         assert list_nodes != -1
     return AList
@@ -201,7 +201,7 @@ def computeDistanceMCL(fileName1, fileName2):
     clusterGraph1 = Graph.Read(clusterFile1, "edges")
     clusterGraph2 = Graph.Read(clusterFile2, "edges")
 
-    cluster1 = Graph.clusters(clusterGraph1)
+    cluster1 = Graph.clusters(clusterGraph1) # this is completely broken lol. Thats why it didn't work...
     cluster2 = Graph.clusters(clusterGraph2)
 
     mcl_dist = 1 - compare_communities(cluster1, cluster2, "nmi")
